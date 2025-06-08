@@ -1,48 +1,24 @@
 import { useState, useRef, useCallback } from 'react';
 import type { Cell } from '../types/Cell';
-import { canMatch, areAdjacent } from '../utils/grid';
+import { getContextualHints } from '../utils/contextualHints';
 
-const HINT_DISPLAY_DURATION = 10000;
+const HINT_DISPLAY_DURATION = 10000; // Show hint for 10 seconds then stop
 
-export const useHints = (grid: Cell[][], gameStatus: string) => {
+export const useHints = (grid: Cell[][], gameStatus: string, selectedCells: Cell[] = []) => {
   const [hintCells, setHintCells] = useState<Cell[]>([]);
   const [showingHints, setShowingHints] = useState<boolean>(false);
-  const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hintTimer = useRef<NodeJS.Timeout | null>(null);
   const currentGridRef = useRef(grid);
   const gameStatusRef = useRef(gameStatus);
+  const selectedCellsRef = useRef(selectedCells);
   
+  // Update refs
   currentGridRef.current = grid;
   gameStatusRef.current = gameStatus;
-
-  const findValidMatch = useCallback((currentGrid: Cell[][]): Cell[] => {
-    const allCells = currentGrid.flat().filter(cell => cell.value !== null);
-    
-    for (let i = 0; i < allCells.length; i++) {
-      for (let j = i + 1; j < allCells.length; j++) {
-        const cell1 = allCells[i];
-        const cell2 = allCells[j];
-        
-        if (canMatch(cell1.value!, cell2.value!) && areAdjacent(cell1, cell2)) {
-          return [cell1, cell2];
-        }
-      }
-    }
-    
-    for (let i = 0; i < allCells.length; i++) {
-      for (let j = i + 1; j < allCells.length; j++) {
-        const cell1 = allCells[i];
-        const cell2 = allCells[j];
-        
-        if (canMatch(cell1.value!, cell2.value!)) {
-          return [cell1, cell2];
-        }
-      }
-    }
-    
-    return [];
-  }, []);
+  selectedCellsRef.current = selectedCells;
 
   const stopHintMechanism = useCallback(() => {
+    console.log('🛑 Stopping hint mechanism');
     setShowingHints(false);
     setHintCells([]);
     if (hintTimer.current) {
@@ -52,18 +28,27 @@ export const useHints = (grid: Cell[][], gameStatus: string) => {
   }, []);
 
   const startHintMechanism = useCallback(() => {
+    console.log('🚀 Starting contextual hint mechanism - status:', gameStatusRef.current, 'already showing:', showingHints);
+    console.log('🎯 Selected cells:', selectedCellsRef.current.map(c => `${c.id}(${c.value})`));
+    
     if (gameStatusRef.current !== 'playing' || showingHints) return;
     
-    const matchingPair = findValidMatch(currentGridRef.current);
-    if (matchingPair.length > 0) {
+    const hints = getContextualHints(selectedCellsRef.current, currentGridRef.current);
+    
+    if (hints.length > 0) {
+      console.log('✨ Displaying contextual hints for cells:', hints.map(c => `${c.id}(${c.value})`));
       setShowingHints(true);
-      setHintCells(matchingPair);
+      setHintCells(hints);
       
+      // Show hint for 10 seconds then stop
       hintTimer.current = setTimeout(() => {
+        console.log('⏰ Hint timeout reached, stopping hints');
         stopHintMechanism();
       }, HINT_DISPLAY_DURATION);
+    } else {
+      console.log('❌ No contextual hints found');
     }
-  }, [findValidMatch, stopHintMechanism, showingHints]);
+  }, [stopHintMechanism, showingHints]);
 
   return {
     hintCells,
