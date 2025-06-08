@@ -7,7 +7,7 @@ import type { Cell } from '../../types/Cell';
 import type { Screen } from '../../types/Screen';
 import Grid from '../Grid';
 import Head from '../Head';
-import blokkoLogo from '../../img/blokko.png';
+import Logo from '../Logo';
 
 interface GameProps {
   onNavigate: (screen: Screen, finalScore?: number) => void;
@@ -66,10 +66,10 @@ const Game = ({ onNavigate }: GameProps) => {
       <div className="game-container">
         <div className="game-content">
           <div className="game-logo-container">
-            <img 
-              src={blokkoLogo} 
-              alt="Blokko" 
-              className="game-logo"
+            <Logo 
+              width={400} 
+              height={120} 
+              animated={false}
             />
           </div>
 
@@ -78,7 +78,7 @@ const Game = ({ onNavigate }: GameProps) => {
               onClick={() => onNavigate(SCREEN.MENU)}
               className="back-button"
             >
-              ← Menu
+              Menu
             </button>
             
             <div className="score-display">

@@ -1,0 +1,184 @@
+.animated-logo {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.animated-logo:hover {
+  transform: scale(1.02);
+}
+
+.animated-text-layer {
+  opacity: 1;
+}
+
+.animated-text-layer.animate {
+  opacity: 0;
+  animation: layerAppear 0.1s ease-out forwards;
+}
+
+@keyframes layerAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-char {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: center center;
+  display: inline-block;
+}
+
+.animated-char.animate {
+  opacity: 0;
+  transform: scale(0);
+  animation: dramaticPopOut 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes dramaticPopOut {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(2);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(2.5);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dramaticPopOutBig {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(2.2);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(2.8);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animated-char:nth-child(1),
+.animated-char:nth-child(3),
+.animated-char:nth-child(6) {
+  transform: scale(1.2);
+}
+
+.animated-char:nth-child(1).animate {
+  animation: dramaticPopOutBig 1.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animated-char:nth-child(2).animate {
+  animation-duration: 1.2s;
+}
+
+.animated-char:nth-child(3).animate {
+  animation: dramaticPopOutBig 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.animated-char:nth-child(4).animate {
+  animation-duration: 1.2s;
+}
+
+.animated-char:nth-child(5).animate {
+  animation-duration: 1.4s;
+}
+
+.animated-char:nth-child(6).animate {
+  animation: dramaticPopOutBig 1.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animated-char:nth-child(odd).animate {
+  animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animated-char:nth-child(even).animate {
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.animated-logo:hover .animated-char {
+  animation: characterWiggle 0.6s ease-in-out;
+}
+
+.animated-logo:hover .animated-char:nth-child(1),
+.animated-logo:hover .animated-char:nth-child(3),
+.animated-logo:hover .animated-char:nth-child(6) {
+  animation: characterWiggleBig 0.6s ease-in-out;
+}
+
+@keyframes characterWiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(1deg) scale(1.05);
+  }
+  75% {
+    transform: rotate(-1deg) scale(1.05);
+  }
+}
+
+@keyframes characterWiggleBig {
+  0%, 100% {
+    transform: rotate(0deg) scale(1.2);
+  }
+  25% {
+    transform: rotate(1deg) scale(1.25);
+  }
+  75% {
+    transform: rotate(-1deg) scale(1.25);
+  }
+}
+
+@media (max-width: 640px) {
+  .animated-char.animate {
+    animation-duration: 1s !important;
+  }
+  
+  .animated-char:nth-child(1).animate,
+  .animated-char:nth-child(3).animate,
+  .animated-char:nth-child(6).animate {
+    animation: dramaticPopOutBig 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+  }
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated-char.animate,
+  .animated-text-layer.animate {
+    animation-duration: 0.1s !important;
+    animation-delay: 0s !important;
+  }
+  
+  .animated-logo:hover .animated-char {
+    animation: none;
+  }
+}

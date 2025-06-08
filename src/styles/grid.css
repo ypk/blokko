@@ -3,33 +3,34 @@
         background: linear-gradient(135deg, #fff4e0 0%, #ffe8cc 100%);
         border: 3px solid;
         border-image: linear-gradient(to bottom, #f67136, #e3531e) 1;
-        @apply rounded-xl shadow-xl p-2 sm:p-3 lg:p-6;
+        @apply rounded-xl shadow-xl p-4 lg:p-6 mt-6;
         box-shadow: 0 20px 25px -5px rgba(230, 83, 30, 0.1), 0 10px 10px -5px rgba(230, 83, 30, 0.04);
+    
+        @media (min-width: 1024px) {
+            @apply mt-0;
+        }
     }
 
-    /* 6x6 Grid for Mobile */
     .grid-layout-6 {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         grid-template-rows: repeat(6, 1fr);
-        gap: 2px;
+        gap: 6px;
         aspect-ratio: 1;
         width: 100%;
         max-width: 95vw;
     }
 
-    /* 8x8 Grid for Tablet */
     .grid-layout-8 {
         display: grid;
         grid-template-columns: repeat(8, 1fr);
         grid-template-rows: repeat(8, 1fr);
-        gap: 2px;
+        gap: 6px;
         aspect-ratio: 1;
         width: 100%;
         max-width: min(90vw, 70vh);
     }
 
-    /* 10x10 Grid for Desktop */
     .grid-layout-10 {
         display: grid;
         grid-template-columns: repeat(10, 1fr);

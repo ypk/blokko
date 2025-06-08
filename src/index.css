@@ -12,4 +12,5 @@
 @import "./styles/grid.css";
 @import "./styles/cells.css";
 @import "./styles/animations.css"; 
-@import "./styles/screens.css"; 
+@import "./styles/screens.css";
+@import "./styles/animated-logo.css"; 
