@@ -4,6 +4,7 @@ import type { Cell } from '../types/Cell';
 import { createInitialGrid, isValidSimpleSelection, updateGridSelection } from '../utils/grid';
 import { processMatch } from '../utils/game';
 import { useGridSize } from './useGridSize';
+import { GAME_STATUS } from '../constants';
 
 export const useGameLogic = () => {
     const gridSize = useGridSize();
@@ -11,12 +12,12 @@ export const useGameLogic = () => {
     const [gameState, setGameState] = useState<GameState>(() => ({
         grid: createInitialGrid(gridSize),
         selectedCells: [],
-        gameStatus: 'playing',
+        gameStatus: GAME_STATUS.PLAYING,
         moveCount: 0,
     }));
 
     const handleCellClick = useCallback((clickedCell: Cell) => {
-        if (gameState.gameStatus !== 'playing' || clickedCell.value === null) {
+        if (gameState.gameStatus !== GAME_STATUS.PLAYING || clickedCell.value === null) {
             return;
         }
 
@@ -57,7 +58,7 @@ export const useGameLogic = () => {
         setGameState({
             grid: createInitialGrid(gridSize),
             selectedCells: [],
-            gameStatus: 'playing',
+            gameStatus: GAME_STATUS.PLAYING,
             moveCount: 0,
         });
     }, [gridSize]);

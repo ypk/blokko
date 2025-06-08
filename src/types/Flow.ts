@@ -1,11 +1,11 @@
-export type Screen = 'menu' | 'playing' | 'settings' | 'gameOver' | 'victory';
+import { DIFFICULTY, GRID_SIZE } from '../constants';
 
 export interface Settings {
     hintTimeout: number;
     showTimer: boolean;
     soundEnabled: boolean;
-    difficulty: 'easy' | 'medium' | 'hard';
-    gridSize: 10 | 12 | 15;
+    difficulty: typeof DIFFICULTY[keyof typeof DIFFICULTY];
+    gridSize: typeof GRID_SIZE[keyof typeof GRID_SIZE];
 }
 
 export interface FlowState {

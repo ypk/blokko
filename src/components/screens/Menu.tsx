@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import type { Screen } from '../types/Screen';
-import blokkoLogo from '../img/blokko.png';
+import type { Screen } from '../../types/Screen';
+import blokkoLogo from '../../img/blokko.png';
 
 interface MenuProps {
   onNavigate: (screen: Screen) => void;

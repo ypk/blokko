@@ -19,7 +19,7 @@
     }
 
     /* Game Header */
-    .game-header {
+    .game-header-with-score {
         @apply flex items-center justify-between w-full mb-6 px-4;
     }
 
@@ -32,40 +32,41 @@
         @apply bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm;
         font-family: var(--font-family-body);
     }
-
-    /* Bottom Stats */
-    .bottom-stats {
-        @apply fixed bottom-4 left-4 flex flex-col gap-2 z-10;
+            
+    /* Score Display in Header */
+    .score-display {
+        @apply flex flex-col items-center;
     }
 
-    .bottom-stat {
-        @apply px-3 py-2;
-    }
-
-    .bottom-stat .stat-label {
-        @apply text-indigo-700/60 text-base;
+    .score-label {
+        @apply text-indigo-700 text-sm font-medium;
         font-family: var(--font-family-body);
     }
 
-    .bottom-stat .stat-value {
-        @apply ml-2 font-semibold text-indigo-800/70 text-lg;
+    .score-value {
+        @apply text-indigo-800 text-2xl font-bold;
         font-family: var(--font-family-brand);
+        letter-spacing: 0.05em;
     }
 
-    .status-playing {
-        @apply text-green-600;
-    }
-
-    .status-won {
-        @apply text-blue-600;
-    }
-
-    .status-lost {
-        @apply text-red-600;
-    }
-
-    .score-count {
-        @apply text-indigo-600;
+    /* Mobile adjustments */
+    @media (max-width: 640px) {
+        .game-header-with-score {
+            @apply px-2 mb-4;
+        }
+        
+        .back-button,
+        .reset-button {
+            @apply py-2 px-3 text-xs;
+        }
+        
+        .score-label {
+            @apply text-xs;
+        }
+        
+        .score-value {
+            @apply text-xl;
+        }
     }
 
     /* Shared Score Card */

@@ -1,1 +1,3 @@
-export type Screen = 'menu' | 'game' | 'settings' | 'victory' | 'gameover';
+import { SCREEN } from '../constants';
+
+export type Screen = typeof SCREEN[keyof typeof SCREEN];

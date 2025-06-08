@@ -1,51 +1,47 @@
 import { useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import Game from './components/Game';
-import MenuScreen from './components/Menu';
-import SettingsScreen from './components/Settings';
-import VictoryScreen from './components/Victory';
-import GameOverScreen from './components/GameOver';
+import Game from './components/screens/Game';
+import Menu from './components/screens/Menu';
+import Settings from './components/screens/Settings';
+import Victory from './components/screens/Victory';
+import GameOver from './components/screens/GameOver';
 import type { Screen } from './types/Screen';
+import { SCREEN } from './constants';
 
-export interface AppState {
-  currentScreen: Screen;
-  finalScore?: number;
-}
 
-const App = () => {
-  const [appState, setAppState] = useState<AppState>({
-    currentScreen: 'menu'
-  });
+const Blokko = () => {
+    const [currentScreen, setCurrentScreen] = useState<Screen>(SCREEN.MENU);
+  const [finalScore, setFinalScore] = useState<number>(0);
 
-  const navigateToScreen = (screen: Screen, finalScore?: number) => {
-    setAppState({
-      currentScreen: screen,
-      finalScore
-    });
+  const handleNavigate = (screen: Screen, score?: number) => {
+    setCurrentScreen(screen);
+    if (score !== undefined) {
+      setFinalScore(score);
+    }
   };
 
-  const renderCurrentScreen = () => {
-    switch (appState.currentScreen) {
-      case 'menu':
-        return <MenuScreen onNavigate={navigateToScreen} />;
-      case 'game':
-        return <Game onNavigate={navigateToScreen} />;
-      case 'settings':
-        return <SettingsScreen onNavigate={navigateToScreen} />;
-      case 'victory':
-        return <VictoryScreen onNavigate={navigateToScreen} finalScore={appState.finalScore} />;
-      case 'gameover':
-        return <GameOverScreen onNavigate={navigateToScreen} finalScore={appState.finalScore} />;
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case SCREEN.MENU:
+        return <Menu onNavigate={handleNavigate} />;
+      case SCREEN.GAME:
+        return <Game onNavigate={handleNavigate} />;
+      case SCREEN.SETTINGS:
+        return <Settings onNavigate={handleNavigate} />;
+      case SCREEN.VICTORY:
+        return <Victory onNavigate={handleNavigate} finalScore={finalScore} />;
+      case SCREEN.GAME_OVER:
+        return <GameOver onNavigate={handleNavigate} finalScore={finalScore} />;
       default:
-        return <MenuScreen onNavigate={navigateToScreen} />;
+        return <Menu onNavigate={handleNavigate} />;
     }
   };
 
   return (
     <HelmetProvider>
-      {renderCurrentScreen()}
+      {renderScreen()}
     </HelmetProvider>
   );
 };
 
-export default App;
+export default Blokko

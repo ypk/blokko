@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import type { Screen } from '../types/Screen';
+import type { Screen } from '../../types/Screen';
 
 interface SettingsProps {
   onNavigate: (screen: Screen) => void;

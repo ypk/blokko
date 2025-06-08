@@ -1,31 +1,26 @@
 import { Helmet } from 'react-helmet-async';
-import type { Screen } from '../types/Screen';
+import type { Screen } from '../../types/Screen';
 
-interface GameOverProps {
+interface VictoryProps {
   onNavigate: (screen: Screen) => void;
   finalScore?: number;
 }
 
-const GameOver = ({ onNavigate, finalScore = 0 }: GameOverProps) => {
+const Victory = ({ onNavigate, finalScore = 0 }: VictoryProps) => {
   return (
     <>
       <Helmet>
-        <title>Game Over - Blokko</title>
-        <meta name="description" content="Game Over! Try again and beat your score in Blokko!" />
+        <title>Victory! - Blokko</title>
+        <meta name="description" content="Congratulations! You've won Blokko!" />
       </Helmet>
 
-      <div className="gameover-screen">
-        <div className="gameover-content">
-          <h1 className="gameover-title">💔 GAME OVER</h1>
-          
-          <div className="gameover-message">
-            <p>No more valid moves available!</p>
-            <p>Better luck next time!</p>
-          </div>
+      <div className="victory-screen">
+        <div className="victory-content">
+          <h1 className="victory-title">🎉 VICTORY! 🎉</h1>
           
           <div className="score-card">
             <div className="score-number">{finalScore}</div>
-            <div className="score-description">Final Score</div>
+            <div className="score-description">Moves to Victory</div>
           </div>
 
           <div className="action-buttons">
@@ -33,7 +28,7 @@ const GameOver = ({ onNavigate, finalScore = 0 }: GameOverProps) => {
               onClick={() => onNavigate('game')}
               className="action-button-primary"
             >
-              TRY AGAIN
+              PLAY AGAIN
             </button>
             
             <button
@@ -49,4 +44,4 @@ const GameOver = ({ onNavigate, finalScore = 0 }: GameOverProps) => {
   );
 };
 
-export default GameOver;
+export default Victory;

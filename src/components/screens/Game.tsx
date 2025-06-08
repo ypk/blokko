@@ -1,12 +1,13 @@
 import { useCallback, useEffect } from 'react';
-import { useHints } from '../hooks/useHints';
-import { useInactivityTimer } from '../hooks/useInactivityTimer';
-import { useGameLogic } from '../hooks/useGameLogic';
-import { getStatusClass } from '../utils/game';
-import type { Screen } from '../types/Screen';
-import Grid from './Grid';
-import Head from './Head';
-import blokkoLogo from '../img/blokko.png';
+import { useHints } from '../../hooks/useHints';
+import { useInactivityTimer } from '../../hooks/useInactivityTimer';
+import { useGameLogic } from '../../hooks/useGameLogic';
+import { getStatusClass } from '../../utils/game';
+import { SCREEN, GAME_STATUS } from '../../constants';
+import type { Screen } from '../../types/Screen';
+import Grid from '../Grid';
+import Head from '../Head';
+import blokkoLogo from '../../img/blokko.png';
 
 interface GameProps {
   onNavigate: (screen: Screen, finalScore?: number) => void;
@@ -45,14 +46,14 @@ const Game = ({ onNavigate }: GameProps) => {
 
   // Handle game end navigation
   useEffect(() => {
-    if (gameState.gameStatus === 'won') {
+    if (gameState.gameStatus === GAME_STATUS.WON) {
       setTimeout(() => {
-        onNavigate('victory', gameState.moveCount);
-      }, 1500); // Small delay to show the win state
-    } else if (gameState.gameStatus === 'lost') {
+        onNavigate(SCREEN.VICTORY, gameState.moveCount);
+      }, 1500);
+    } else if (gameState.gameStatus === GAME_STATUS.LOST) {
       setTimeout(() => {
-        onNavigate('gameover', gameState.moveCount);
-      }, 1500); // Small delay to show the loss state
+        onNavigate(SCREEN.GAME_OVER, gameState.moveCount);
+      }, 1500);
     }
   }, [gameState.gameStatus, gameState.moveCount, onNavigate]);
 
@@ -64,22 +65,6 @@ const Game = ({ onNavigate }: GameProps) => {
       />
 
       <div className="game-container">
-        <div className="game-header">
-          <button
-            onClick={() => onNavigate('menu')}
-            className="back-button"
-          >
-            ← Menu
-          </button>
-          
-          <button
-            onClick={onResetGame}
-            className="reset-button"
-          >
-            Reset
-          </button>
-        </div>
-
         <div className="game-content">
           <div className="game-logo-container">
             <img 
@@ -89,29 +74,33 @@ const Game = ({ onNavigate }: GameProps) => {
             />
           </div>
 
+          <div className="game-header-with-score">
+            <button
+              onClick={() => onNavigate(SCREEN.MENU)}
+              className="back-button"
+            >
+              ← Menu
+            </button>
+            
+            <div className="score-display">
+              <span className="score-label">Score</span>
+              <span className="score-value">{gameState.moveCount}</span>
+            </div>
+            
+            <button
+              onClick={onResetGame}
+              className="reset-button"
+            >
+              Reset
+            </button>
+          </div>
+
           <Grid 
             grid={gameState.grid} 
             onCellClick={onCellClick}
             hintCells={hintCells}
             gridSize={gridSize}
           />
-
-        </div>
-
-        <div className="bottom-stats">
-          <div className="bottom-stat">
-            <span className="stat-label">Status:</span>
-            <span className={`stat-value ${getStatusClass(gameState.gameStatus)}`}>
-              {gameState.gameStatus.toUpperCase()}
-            </span>
-          </div>
-          
-          <div className="bottom-stat">
-            <span className="stat-label">Score:</span>
-            <span className="stat-value score-count">
-              {gameState.moveCount}
-            </span>
-          </div>
         </div>
       </div>
     </>

@@ -1,6 +1,7 @@
 import type { Cell } from '../types/Cell';
 import type { State as GameState } from '../types/State';
 import { isGameWon, hasValidMoves } from './grid';
+import { GAME_STATUS } from '../constants';
 
 export const processMatch = (currentState: GameState, selectedCells: Cell[]): GameState => {
     const newGrid = [...currentState.grid];
@@ -13,11 +14,11 @@ export const processMatch = (currentState: GameState, selectedCells: Cell[]): Ga
         };
     });
 
-    let newStatus: GameState['gameStatus'] = 'playing';
+    let newStatus: GameState['gameStatus'] = GAME_STATUS.PLAYING;
     if (isGameWon(newGrid)) {
-        newStatus = 'won';
+        newStatus = GAME_STATUS.WON;
     } else if (!hasValidMoves(newGrid)) {
-        newStatus = 'lost';
+        newStatus = GAME_STATUS.LOST;
     }
 
     return {
@@ -31,11 +32,11 @@ export const processMatch = (currentState: GameState, selectedCells: Cell[]): Ga
 
 export const getStatusClass = (gameStatus: GameState['gameStatus']): string => {
     switch (gameStatus) {
-        case 'playing':
+        case GAME_STATUS.PLAYING:
             return 'status-playing';
-        case 'won':
+        case GAME_STATUS.WON:
             return 'status-won';
-        case 'lost':
+        case GAME_STATUS.LOST:
             return 'status-lost';
         default:
             return 'status-playing';

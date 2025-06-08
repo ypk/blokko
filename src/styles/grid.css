@@ -18,6 +18,17 @@
         max-width: 95vw;
     }
 
+    /* 8x8 Grid for Tablet */
+    .grid-layout-8 {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        gap: 2px;
+        aspect-ratio: 1;
+        width: 100%;
+        max-width: min(90vw, 70vh);
+    }
+
     /* 10x10 Grid for Desktop */
     .grid-layout-10 {
         display: grid;
