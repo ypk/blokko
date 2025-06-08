@@ -1,0 +1,23 @@
+.grid-container {
+    @apply rounded-xl p-6 relative bg-gradient-to-br from-orange-50 to-orange-100;
+    box-shadow: 
+        0 25px 50px -12px theme('colors.orange.500 / 0.25'),
+        0 20px 25px -5px theme('colors.red.500 / 0.1'),
+        0 10px 10px -5px theme('colors.orange.600 / 0.1'),
+        0 4px 6px -1px theme('colors.orange.400 / 0.1');
+}
+
+.grid-container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    @apply bg-gradient-to-b from-orange-500 to-red-600 rounded-xl;
+    z-index: -1;
+}
+
+.grid-layout {
+    @apply grid grid-cols-10 gap-2;
+}

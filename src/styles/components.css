@@ -1,0 +1,26 @@
+@layer components {
+    .bottom-stats {
+        @apply fixed bottom-4 left-4 flex flex-col gap-1 z-10;
+    }
+
+    .bottom-stat {
+        @apply px-2 py-1 bg-black/10 rounded-md;
+    }
+
+    .bottom-stat span {
+        background: linear-gradient(135deg, 
+            theme('colors.yellow.500') 0%, 
+            theme('colors.orange.500') 50%, 
+            theme('colors.red.500') 100%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        @apply text-sm font-semibold;
+    }
+
+    .bottom-stat .stat-value {
+        @apply ml-2;
+    }
+
+}

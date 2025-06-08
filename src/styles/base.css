@@ -1,0 +1,25 @@
+@layer components {
+    .game-container {
+        @apply min-h-screen p-8 relative flex flex-col items-center justify-center;
+        background: linear-gradient(135deg, 
+            theme('colors.yellow.50') 0%, 
+            theme('colors.orange.50') 20%, 
+            theme('colors.orange.100') 40%, 
+            theme('colors.red.50') 60%, 
+            theme('colors.orange.100') 80%, 
+            theme('colors.yellow.100') 100%
+        );
+    }
+
+    .game-content {
+        @apply max-w-4xl mx-auto flex flex-col items-center;
+    }
+
+    .game-logo-container {
+        @apply mb-8 flex justify-center;
+    }
+
+    .game-logo {
+        @apply h-20 w-auto object-contain drop-shadow-lg;
+    }
+}
