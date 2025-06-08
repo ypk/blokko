@@ -1,10 +1,18 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from 'react';
+import { createRoot, Root } from 'react-dom/client';
+import './index.css';
+import Game from './components/Game';
 
-createRoot(document.getElementById('root')!).render(
+const rootElement: HTMLElement | null = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Root element not found. Make sure you have a div with id="root" in your HTML.');
+}
+
+const root: Root = createRoot(rootElement);
+
+root.render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <Game />
+  </StrictMode>
+);
