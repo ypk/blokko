@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 import type { State as GameState } from '../types/State';
 
 interface GameHeadProps {
@@ -10,7 +11,7 @@ const Head = ({ gameStatus, moveCount }: GameHeadProps) => {
     const getTitle = () => {
         switch (gameStatus) {
             case 'playing':
-                return `Blokko - ${moveCount} moves`;
+                return `Blokko - Score: ${moveCount}`;
             case 'won':
                 return 'Blokko - You Won! 🎉';
             case 'lost':
@@ -22,11 +23,15 @@ const Head = ({ gameStatus, moveCount }: GameHeadProps) => {
 
     const title = getTitle();
 
+    useEffect(() => {
+        document.title = title;
+    }, [title]);
+
     return (
         <Helmet>
-            <title>{title}</title>
-            <meta name="theme-color" content="#4F46E5" />
+            <meta name="theme-color" content="#f97316" />
             <meta name="application-name" content="Blokko" />
+            <meta name="description" content="Blokko - Number Matching Puzzle Game" />
             <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         </Helmet>
     );

@@ -1,71 +1,84 @@
-import { useState } from 'react';
-import type { State as GameState } from '../types/State';
-import type { Cell } from '../types/Cell';
-import { createInitialGrid } from '../utils/grid';
+import { useCallback } from 'react';
+import { useHints } from '../hooks/useHints';
+import { useInactivityTimer } from '../hooks/useInactivityTimer';
+import { useGameLogic } from '../hooks/useGameLogic';
 import Grid from './Grid';
 import Head from './Head';
+import blokkoLogo from '../img/blokko.png';
 
 const Game = () => {
-  const [gameState, setGameState] = useState<GameState>(() => ({
-    grid: createInitialGrid(),
-    selectedCells: [],
-    gameStatus: 'playing',
-    moveCount: 0,
-  }));
+  const { gameState, handleCellClick, resetGame } = useGameLogic();
 
-  const handleCellClick = (cell: Cell) => {
-    if (gameState.gameStatus !== 'playing' || cell.value === null) {
-      return;
-    }
-    console.log('Cell clicked:', cell);
-  };
+  const { hintCells, showingHints, startHintMechanism, stopHintMechanism } = useHints(
+    gameState.grid,
+    gameState.gameStatus
+  );
 
-  const getStatusClass = () => {
-    switch (gameState.gameStatus) {
-      case 'playing':
-        return 'status-playing';
-      case 'won':
-        return 'status-won';
-      case 'lost':
-        return 'status-lost';
-      default:
-        return 'status-playing';
-    }
-  };
+  const onInactivity = useCallback(() => {
+    startHintMechanism();
+  }, [startHintMechanism]);
+
+  const { resetTimer } = useInactivityTimer(
+    gameState.gameStatus,
+    gameState.selectedCells.length,
+    showingHints,
+    onInactivity
+  );
+
+  const onCellClick = useCallback((cell: any) => {
+    resetTimer();
+    stopHintMechanism();
+    handleCellClick(cell);
+  }, [resetTimer, stopHintMechanism, handleCellClick]);
+
+  const onResetGame = useCallback(() => {
+    resetGame();
+    resetTimer();
+    stopHintMechanism();
+  }, [resetGame, resetTimer, stopHintMechanism]);
 
   return (
     <>
-      <Head 
+      <Head
         gameStatus={gameState.gameStatus}
         moveCount={gameState.moveCount}
       />
 
       <div className="game-container">
         <div className="game-content">
-          <h1 className="game-title">
-            Blokko
-          </h1>
-          
-          <div className="game-stats">
-            <div className="stat-card">
-              <span className="stat-label">Status:</span>
-              <span className={`stat-value ${getStatusClass()}`}>
-                {gameState.gameStatus.toUpperCase()}
-              </span>
-            </div>
-            
-            <div className="stat-card">
-              <span className="stat-label">Moves:</span>
-              <span className="stat-value move-count">
-                {gameState.moveCount}
-              </span>
-            </div>
+          <div className="game-logo-container">
+            <img
+              src={blokkoLogo}
+              alt="Blokko"
+              className="game-logo"
+            />
           </div>
 
-          <Grid 
-            grid={gameState.grid} 
-            onCellClick={handleCellClick}
+          {(gameState.gameStatus === 'won' || gameState.gameStatus === 'lost') && (
+            <div className="flex justify-center mb-8">
+              <button
+                onClick={onResetGame}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+              >
+                {gameState.gameStatus === 'won' ? 'Play Again! 🎉' : 'Try Again'}
+              </button>
+            </div>
+          )}
+
+          <Grid
+            grid={gameState.grid}
+            onCellClick={onCellClick}
+            hintCells={hintCells}
           />
+        </div>
+
+        <div className="bottom-stats">
+          <div className="bottom-stat">
+            <span className="stat-label">Score:</span>
+            <span className="stat-value score-count">
+              {gameState.moveCount}
+            </span>
+          </div>
         </div>
       </div>
     </>

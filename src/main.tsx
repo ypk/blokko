@@ -12,9 +12,11 @@ if (!rootElement) {
 
 const root: Root = createRoot(rootElement);
 
+const helmetContext = {};
+
 root.render(
   <StrictMode>
-    <HelmetProvider>
+    <HelmetProvider context={helmetContext}>
       <Game />
     </HelmetProvider>
   </StrictMode>
