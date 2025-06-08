@@ -1,4 +1,5 @@
 import { DIFFICULTY, GRID_SIZE } from '../constants';
+import type { Screen } from './Screen';
 
 export interface Settings {
     hintTimeout: number;

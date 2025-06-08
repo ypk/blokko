@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { useHints } from '../../hooks/useHints';
 import { useInactivityTimer } from '../../hooks/useInactivityTimer';
 import { useGameLogic } from '../../hooks/useGameLogic';
-import { getStatusClass } from '../../utils/game';
 import { SCREEN, GAME_STATUS } from '../../constants';
+import type { Cell } from '../../types/Cell';
 import type { Screen } from '../../types/Screen';
 import Grid from '../Grid';
 import Head from '../Head';
@@ -32,7 +32,7 @@ const Game = ({ onNavigate }: GameProps) => {
     onInactivity
   );
 
-  const onCellClick = useCallback((cell: any) => {
+  const onCellClick = useCallback((cell: Cell) => {
     resetTimer();
     stopHintMechanism();
     handleCellClick(cell);
@@ -44,7 +44,6 @@ const Game = ({ onNavigate }: GameProps) => {
     stopHintMechanism();
   }, [resetGame, resetTimer, stopHintMechanism]);
 
-  // Handle game end navigation
   useEffect(() => {
     if (gameState.gameStatus === GAME_STATUS.WON) {
       setTimeout(() => {

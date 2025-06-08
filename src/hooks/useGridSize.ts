@@ -5,9 +5,9 @@ export const useGridSize = () => {
     const [gridSize, setGridSize] = useState(() => {
         if (typeof window !== 'undefined') {
             const screenSize = Math.min(window.innerWidth, window.innerHeight);
-            if (screenSize < 640) return GRID_SIZE.SMALL;      // Mobile: 6x6
-            if (screenSize < 1024) return GRID_SIZE.MEDIUM;    // Tablet: 8x8
-            return GRID_SIZE.LARGE;                            // Desktop: 10x10
+            if (screenSize < 640) return GRID_SIZE.SMALL;
+            if (screenSize < 1024) return GRID_SIZE.MEDIUM;
+            return GRID_SIZE.LARGE;
         }
         return GRID_SIZE.SMALL;
     });
@@ -16,11 +16,11 @@ export const useGridSize = () => {
         const updateGridSize = () => {
             const screenSize = Math.min(window.innerWidth, window.innerHeight);
             if (screenSize < 640) {
-                setGridSize(GRID_SIZE.SMALL);    // Mobile: 6x6
+                setGridSize(GRID_SIZE.SMALL);
             } else if (screenSize < 1024) {
-                setGridSize(GRID_SIZE.MEDIUM);   // Tablet: 8x8
+                setGridSize(GRID_SIZE.MEDIUM);
             } else {
-                setGridSize(GRID_SIZE.LARGE);    // Desktop: 10x10
+                setGridSize(GRID_SIZE.LARGE);
             }
         };
 

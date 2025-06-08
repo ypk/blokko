@@ -1,8 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { GAME_STATUS } from '../constants';
-
-const SINGLE_CELL_TIMEOUT = 30000; // 30 seconds when one cell selected
-const NO_SELECTION_TIMEOUT = 60000; // 60 seconds when no cells selected
+import { SINGLE_CELL_TIMEOUT, NO_SELECTION_TIMEOUT } from '../constants';
 
 export const useInactivityTimer = (
   gameStatus: string,
@@ -12,9 +10,8 @@ export const useInactivityTimer = (
 ) => {
   const [lastClickTime, setLastClickTime] = useState<number>(Date.now());
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
-  const inactivityTimer = useRef<NodeJS.Timeout | null>(null);
+  const inactivityTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   
-  // Use ref to store the callback to avoid dependency issues
   const onInactivityRef = useRef(onInactivity);
   onInactivityRef.current = onInactivity;
 
@@ -33,7 +30,6 @@ export const useInactivityTimer = (
 
     setTimerRunning(true);
     
-    // Determine timeout based on selection state
     const timeout = selectedCellsCount === 1 ? SINGLE_CELL_TIMEOUT : NO_SELECTION_TIMEOUT;
     
     inactivityTimer.current = setTimeout(() => {
@@ -52,7 +48,6 @@ export const useInactivityTimer = (
     setLastClickTime(newTime);
     stopInactivityTimer();
     
-    // Restart timer after a brief delay
     setTimeout(() => {
       if (gameStatus === GAME_STATUS.PLAYING && !showingHints) {
         startInactivityTimer();
@@ -60,14 +55,12 @@ export const useInactivityTimer = (
     }, 100);
   }, [gameStatus, showingHints, stopInactivityTimer, startInactivityTimer]);
 
-  // Effect for managing timer lifecycle
   useEffect(() => {
     if (gameStatus !== GAME_STATUS.PLAYING || showingHints) {
       stopInactivityTimer();
       return;
     }
 
-    // Start timer when conditions are right
     if (!timerRunning) {
       const timeoutId = setTimeout(() => {
         startInactivityTimer();
@@ -77,7 +70,6 @@ export const useInactivityTimer = (
     }
   }, [gameStatus, showingHints, timerRunning, selectedCellsCount]);
 
-  // Cleanup effect
   useEffect(() => {
     return () => {
       stopInactivityTimer();

@@ -23,3 +23,8 @@ export const GRID_SIZE = {
     MEDIUM: 8,
     LARGE: 10
 } as const;
+
+export const HINT_DISPLAY_DURATION = 10000;
+export const SINGLE_CELL_TIMEOUT = 30000;
+export const NO_SELECTION_TIMEOUT = 60000;
+export const HINT_DISPLAY_TIMEOUT = 60000;
