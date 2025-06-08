@@ -62,7 +62,7 @@ export const useCellSelection = (
                 return handleNewCellSelection(clickedCell, selectedCells, grid);
             }
         });
-    }, [gameState.gameStatus, handleExistingCellClick, handleNewCellSelection]);
+    }, [gameState.gameStatus, handleExistingCellClick, handleNewCellSelection, setGameState]);
 
     return {
         handleCellClick

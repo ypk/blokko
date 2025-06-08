@@ -7,7 +7,7 @@ const HINT_DISPLAY_DURATION = 10000; // Show hint for 10 seconds then stop
 export const useHints = (grid: Cell[][], gameStatus: string, selectedCells: Cell[] = []) => {
   const [hintCells, setHintCells] = useState<Cell[]>([]);
   const [showingHints, setShowingHints] = useState<boolean>(false);
-  const hintTimer = useRef<NodeJS.Timeout | null>(null);
+  const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const currentGridRef = useRef(grid);
   const gameStatusRef = useRef(gameStatus);
   const selectedCellsRef = useRef(selectedCells);

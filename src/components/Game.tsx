@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useHints } from '../hooks/useHints';
 import { useInactivityTimer } from '../hooks/useInactivityTimer';
 import { useGameLogic } from '../hooks/useGameLogic';
@@ -10,14 +10,12 @@ import blokkoLogo from '../img/blokko.png';
 const Game = () => {
   const { gameState, handleCellClick, resetGame } = useGameLogic();
   
-  // Pass selectedCells to useHints for contextual hints
   const { hintCells, showingHints, startHintMechanism, stopHintMechanism } = useHints(
     gameState.grid, 
     gameState.gameStatus,
-    gameState.selectedCells  // Add this line
+    gameState.selectedCells
   );
   
-  // Create stable callback for inactivity
   const onInactivity = useCallback(() => {
     startHintMechanism();
   }, [startHintMechanism]);
@@ -76,7 +74,6 @@ const Game = () => {
           />
         </div>
 
-        {/* Bottom left corner stats - transparent */}
         <div className="bottom-stats">
           <div className="bottom-stat">
             <span className="stat-label">Status:</span>
@@ -89,14 +86,6 @@ const Game = () => {
             <span className="stat-label">Score:</span>
             <span className="stat-value score-count">
               {gameState.moveCount}
-            </span>
-          </div>
-          
-          {/* Debug info - remove in production */}
-          <div className="bottom-stat">
-            <span className="stat-label">Selected:</span>
-            <span className="stat-value">
-              {gameState.selectedCells.length}
             </span>
           </div>
         </div>
