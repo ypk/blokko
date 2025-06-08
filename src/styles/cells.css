@@ -1,49 +1,40 @@
-.cell-base {
-    @apply w-10 h-10 rounded border-2 cursor-pointer flex items-center justify-center font-bold text-sm transition-all duration-200;
-}
+@layer components {
+    /* Base Cell Styles */
+    .cell-base {
+        @apply rounded border-2 cursor-pointer flex items-center justify-center font-bold transition-all duration-200;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.05em;
+        aspect-ratio: 1;
+        width: 100%;
+        height: 100%;
+        min-height: 40px;
+        font-size: clamp(0.875rem, 2vw, 1.125rem);
+    }
 
-.cell-normal {
-    @apply bg-gradient-to-br from-orange-50 to-orange-100 border-orange-500 text-gray-800 shadow-sm;
-}
+    /* Normal Cell State */
+    .cell-normal {
+        @apply bg-gradient-to-br from-orange-50 to-orange-100 border-orange-400 text-gray-800 shadow-sm hover:bg-gradient-to-br hover:from-yellow-300 hover:via-orange-400 hover:to-orange-500 hover:border-orange-600 hover:text-white hover:scale-105 hover:shadow-md;
+    }
 
-.cell-normal:hover {
-    @apply bg-gradient-to-br from-yellow-200 via-orange-400 to-orange-500 border-red-600 text-white transform scale-105 shadow-md;
-    box-shadow: 0 4px 12px theme('colors.red.500 / 0.3');
-}
+    /* Selected Cell State */
+    .cell-selected {
+        @apply bg-gradient-to-br from-yellow-300 to-orange-400 border-orange-600 text-white shadow-lg scale-105;
+    }
 
-.cell-selected {
-    @apply bg-gradient-to-br from-yellow-200 to-orange-400 border-red-600 text-white shadow-lg transform scale-105;
-    box-shadow: 0 6px 16px theme('colors.red.500 / 0.4');
-}
+    /* Empty Cell State */
+    .cell-empty {
+        @apply bg-gradient-to-br from-gray-50 to-gray-100 border-gray-300 cursor-default text-transparent;
+    }
 
-.cell-empty {
-    @apply bg-gradient-to-br from-stone-50 to-stone-100 border-stone-300 cursor-default text-transparent;
-}
+    /* Hinted Cell State */
+    .cell-hinted {
+        @apply bg-gradient-to-br from-orange-50 to-orange-100 text-gray-800 shadow-lg scale-105;
+        border: 3px solid;
+        border-image: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080) 1;
+        animation: rainbow-border 2s linear infinite;
+    }
 
-.cell-hinted {
-    @apply bg-gradient-to-br from-orange-50 to-orange-100 text-gray-800 shadow-lg transform scale-105 border-0 rounded relative;
-    box-shadow: 0 6px 20px theme('colors.red.500 / 0.3');
-    animation: pulse-hint 1s ease-in-out infinite;
-}
-
-.cell-hinted::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    background: linear-gradient(45deg, 
-        theme('colors.red.500'), theme('colors.orange.500'), theme('colors.yellow.500'), theme('colors.lime.500'),
-        theme('colors.green.500'), theme('colors.emerald.500'), theme('colors.cyan.500'), theme('colors.blue.500'),
-        theme('colors.indigo.500'), theme('colors.violet.500'), theme('colors.pink.500'), theme('colors.rose.500')
-    );
-    border-radius: inherit;
-    z-index: -1;
-    animation: rainbow-rotate 2s linear infinite;
-}
-
-.cell-hinted:hover {
-    @apply bg-gradient-to-br from-yellow-200 to-orange-400 text-white;
-    transform: scale(1.12);
+    .cell-hinted:hover {
+        @apply bg-gradient-to-br from-yellow-300 to-orange-400 text-white scale-110;
+    }
 }

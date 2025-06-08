@@ -7,7 +7,7 @@ const HINT_DISPLAY_DURATION = 10000; // Show hint for 10 seconds then stop
 export const useHints = (grid: Cell[][], gameStatus: string, selectedCells: Cell[] = []) => {
   const [hintCells, setHintCells] = useState<Cell[]>([]);
   const [showingHints, setShowingHints] = useState<boolean>(false);
-  const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hintTimer = useRef<NodeJS.Timeout | null>(null);
   const currentGridRef = useRef(grid);
   const gameStatusRef = useRef(gameStatus);
   const selectedCellsRef = useRef(selectedCells);
@@ -18,7 +18,6 @@ export const useHints = (grid: Cell[][], gameStatus: string, selectedCells: Cell
   selectedCellsRef.current = selectedCells;
 
   const stopHintMechanism = useCallback(() => {
-    console.log('🛑 Stopping hint mechanism');
     setShowingHints(false);
     setHintCells([]);
     if (hintTimer.current) {
@@ -28,25 +27,18 @@ export const useHints = (grid: Cell[][], gameStatus: string, selectedCells: Cell
   }, []);
 
   const startHintMechanism = useCallback(() => {
-    console.log('🚀 Starting contextual hint mechanism - status:', gameStatusRef.current, 'already showing:', showingHints);
-    console.log('🎯 Selected cells:', selectedCellsRef.current.map(c => `${c.id}(${c.value})`));
-    
     if (gameStatusRef.current !== 'playing' || showingHints) return;
     
-    const hints = getContextualHints(selectedCellsRef.current, currentGridRef.current);
-    
-    if (hints.length > 0) {
-      console.log('✨ Displaying contextual hints for cells:', hints.map(c => `${c.id}(${c.value})`));
+    // Fix the parameter order: selectedCells first, then grid
+    const matchingPair = getContextualHints(selectedCellsRef.current, currentGridRef.current);
+    if (matchingPair.length > 0) {
       setShowingHints(true);
-      setHintCells(hints);
+      setHintCells(matchingPair);
       
-      // Show hint for 10 seconds then stop
+      // Show hint for 10 seconds then stop (no cycling)
       hintTimer.current = setTimeout(() => {
-        console.log('⏰ Hint timeout reached, stopping hints');
         stopHintMechanism();
       }, HINT_DISPLAY_DURATION);
-    } else {
-      console.log('❌ No contextual hints found');
     }
   }, [stopHintMechanism, showingHints]);
 

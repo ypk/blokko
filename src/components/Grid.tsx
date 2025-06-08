@@ -6,12 +6,13 @@ interface GridProps {
     grid: CellType[][];
     onCellClick: (cell: CellType) => void;
     hintCells?: CellType[];
+    gridSize: number;
 }
 
-const Grid = ({ grid, onCellClick, hintCells = [] }: GridProps) => {
+const Grid = ({ grid, onCellClick, hintCells = [], gridSize }: GridProps) => {
     return (
         <div className="grid-container">
-            <div className="grid-layout">
+            <div className={`grid-layout-${gridSize}`}>
                 {grid.flat().map((cell) => (
                     <Cell
                         key={cell.id}

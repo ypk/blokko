@@ -1,8 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { HelmetProvider } from 'react-helmet-async';
 import './index.css';
-import Game from './components/Game';
+import Blokko from './Blokko';
 
 const rootElement: HTMLElement | null = document.getElementById('root');
 
@@ -12,12 +11,8 @@ if (!rootElement) {
 
 const root: Root = createRoot(rootElement);
 
-const helmetContext = {};
-
 root.render(
   <StrictMode>
-    <HelmetProvider context={helmetContext}>
-      <Game />
-    </HelmetProvider>
+    <Blokko />
   </StrictMode>
 );

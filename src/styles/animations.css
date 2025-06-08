@@ -1,46 +1,20 @@
-@keyframes rainbow-rotate {
-    0% {
-        background: linear-gradient(45deg, 
-            theme('colors.red.500'), theme('colors.orange.500'), theme('colors.yellow.500'), theme('colors.lime.500'),
-            theme('colors.green.500'), theme('colors.emerald.500'), theme('colors.cyan.500'), theme('colors.blue.500'),
-            theme('colors.indigo.500'), theme('colors.violet.500'), theme('colors.pink.500'), theme('colors.rose.500')
-        );
-    }
-    25% {
-        background: linear-gradient(45deg, 
-            theme('colors.lime.500'), theme('colors.green.500'), theme('colors.emerald.500'), theme('colors.cyan.500'),
-            theme('colors.blue.500'), theme('colors.indigo.500'), theme('colors.violet.500'), theme('colors.pink.500'),
-            theme('colors.rose.500'), theme('colors.red.500'), theme('colors.orange.500'), theme('colors.yellow.500')
-        );
-    }
-    50% {
-        background: linear-gradient(45deg, 
-            theme('colors.cyan.500'), theme('colors.blue.500'), theme('colors.indigo.500'), theme('colors.violet.500'),
-            theme('colors.pink.500'), theme('colors.rose.500'), theme('colors.red.500'), theme('colors.orange.500'),
-            theme('colors.yellow.500'), theme('colors.lime.500'), theme('colors.green.500'), theme('colors.emerald.500')
-        );
-    }
-    75% {
-        background: linear-gradient(45deg, 
-            theme('colors.pink.500'), theme('colors.rose.500'), theme('colors.red.500'), theme('colors.orange.500'),
-            theme('colors.yellow.500'), theme('colors.lime.500'), theme('colors.green.500'), theme('colors.emerald.500'),
-            theme('colors.cyan.500'), theme('colors.blue.500'), theme('colors.indigo.500'), theme('colors.violet.500')
-        );
-    }
-    100% {
-        background: linear-gradient(45deg, 
-            theme('colors.red.500'), theme('colors.orange.500'), theme('colors.yellow.500'), theme('colors.lime.500'),
-            theme('colors.green.500'), theme('colors.emerald.500'), theme('colors.cyan.500'), theme('colors.blue.500'),
-            theme('colors.indigo.500'), theme('colors.violet.500'), theme('colors.pink.500'), theme('colors.rose.500')
-        );
-    }
-}
-
-@keyframes pulse-hint {
-    0%, 100% {
-        transform: scale(1.05);
-    }
-    50% {
-        transform: scale(1.08);
+@layer components {
+    /* Rainbow border animation for hint cells */
+    @keyframes rainbow-border {
+        0% {
+            border-image: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080) 1;
+        }
+        25% {
+            border-image: linear-gradient(45deg, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000, #ff8000, #ffff00) 1;
+        }
+        50% {
+            border-image: linear-gradient(45deg, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80) 1;
+        }
+        75% {
+            border-image: linear-gradient(45deg, #ff00ff, #ff0080, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff) 1;
+        }
+        100% {
+            border-image: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080) 1;
+        }
     }
 }

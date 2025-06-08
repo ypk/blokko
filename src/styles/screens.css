@@ -1,0 +1,118 @@
+@layer components {
+    /* Menu Screen */
+    .menu-screen {
+        @apply min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4;
+    }
+
+    .menu-content {
+        @apply max-w-xs sm:max-w-md mx-auto text-center w-full;
+    }
+
+    .menu-logo-container {
+        @apply mb-8 sm:mb-12;
+    }
+
+    .menu-logo {
+        @apply h-24 sm:h-40 w-auto mx-auto drop-shadow-lg;
+    }
+
+    .menu-subtitle {
+        @apply text-xl sm:text-2xl text-indigo-600 mb-10 sm:mb-16 font-medium;
+        font-family: var(--font-family-body);
+    }
+
+    .menu-buttons {
+        @apply space-y-6 sm:space-y-8;
+    }
+
+    .menu-button-primary {
+        @apply w-full py-4 sm:py-5 px-6 sm:px-8 rounded-xl sm:rounded-2xl font-bold text-xl sm:text-2xl transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
+
+    .menu-button-secondary {
+        @apply w-full py-4 sm:py-5 px-6 sm:px-8 rounded-xl sm:rounded-2xl font-bold text-xl sm:text-2xl transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
+
+    /* Victory Screen */
+    .victory-screen {
+        @apply min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4;
+    }
+
+    .victory-content {
+        @apply max-w-md mx-auto text-center;
+    }
+
+    .victory-title {
+        @apply text-4xl sm:text-6xl font-bold text-green-700 mb-8;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
+
+    /* Game Over Screen */
+    .gameover-screen {
+        @apply min-h-screen bg-gradient-to-br from-red-50 to-pink-100 flex items-center justify-center p-4;
+    }
+
+    .gameover-content {
+        @apply max-w-md mx-auto text-center;
+    }
+
+    .gameover-title {
+        @apply text-4xl sm:text-6xl font-bold text-red-700 mb-8;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
+
+    .gameover-message {
+        @apply mb-8;
+    }
+
+    .gameover-message p {
+        @apply text-lg text-red-600;
+        font-family: var(--font-family-body);
+    }
+
+    /* Settings Screen */
+    .settings-screen {
+        @apply min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center p-4;
+    }
+
+    .settings-content {
+        @apply max-w-2xl mx-auto;
+    }
+
+    .settings-title {
+        @apply text-4xl sm:text-6xl font-bold text-center text-purple-700 mb-8;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
+
+    .settings-section {
+        @apply bg-white rounded-xl p-6 mb-6 shadow-lg;
+    }
+
+    .settings-section-title {
+        @apply text-2xl font-bold text-purple-600 mb-4;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.05em;
+    }
+
+    .settings-list {
+        @apply space-y-3;
+    }
+
+    .settings-text {
+        @apply text-gray-700 text-base leading-relaxed;
+        font-family: var(--font-family-body);
+    }
+
+    .settings-back-button {
+        @apply w-full py-4 px-8 rounded-xl font-bold text-xl transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
+}

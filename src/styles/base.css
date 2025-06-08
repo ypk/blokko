@@ -1,25 +1,52 @@
-@layer components {
-    .game-container {
-        @apply min-h-screen p-8 relative flex flex-col items-center justify-center;
-        background: linear-gradient(135deg, 
-            theme('colors.yellow.50') 0%, 
-            theme('colors.orange.50') 20%, 
-            theme('colors.orange.100') 40%, 
-            theme('colors.red.50') 60%, 
-            theme('colors.orange.100') 80%, 
-            theme('colors.yellow.100') 100%
-        );
+@layer base {
+    :root {
+        --font-family-brand: 'Bangers', cursive, system-ui;
+        --font-family-body: 'Boogaloo', cursive, system-ui;
     }
 
-    .game-content {
-        @apply max-w-4xl mx-auto flex flex-col items-center;
+    * {
+        box-sizing: border-box;
     }
 
-    .game-logo-container {
-        @apply mb-8 flex justify-center;
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
     }
 
-    .game-logo {
-        @apply h-20 w-auto object-contain drop-shadow-lg;
+    body {
+        font-family: var(--font-family-body);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    #root {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    /* Prevent text selection on game elements */
+    .cell-base,
+    .menu-button-primary,
+    .menu-button-secondary,
+    .action-button-primary,
+    .action-button-secondary {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Improve touch targets on mobile */
+    @media (max-width: 768px) {
+        button {
+            min-height: 44px;
+            min-width: 44px;
+        }
     }
 }

@@ -1,19 +1,23 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHints } from '../hooks/useHints';
 import { useInactivityTimer } from '../hooks/useInactivityTimer';
 import { useGameLogic } from '../hooks/useGameLogic';
 import { getStatusClass } from '../utils/game';
+import type { Screen } from '../types/Screen';
 import Grid from './Grid';
 import Head from './Head';
 import blokkoLogo from '../img/blokko.png';
 
-const Game = () => {
-  const { gameState, handleCellClick, resetGame } = useGameLogic();
+interface GameProps {
+  onNavigate: (screen: Screen, finalScore?: number) => void;
+}
+
+const Game = ({ onNavigate }: GameProps) => {
+  const { gameState, handleCellClick, resetGame, gridSize } = useGameLogic();
   
   const { hintCells, showingHints, startHintMechanism, stopHintMechanism } = useHints(
     gameState.grid, 
-    gameState.gameStatus,
-    gameState.selectedCells
+    gameState.gameStatus
   );
   
   const onInactivity = useCallback(() => {
@@ -39,6 +43,19 @@ const Game = () => {
     stopHintMechanism();
   }, [resetGame, resetTimer, stopHintMechanism]);
 
+  // Handle game end navigation
+  useEffect(() => {
+    if (gameState.gameStatus === 'won') {
+      setTimeout(() => {
+        onNavigate('victory', gameState.moveCount);
+      }, 1500); // Small delay to show the win state
+    } else if (gameState.gameStatus === 'lost') {
+      setTimeout(() => {
+        onNavigate('gameover', gameState.moveCount);
+      }, 1500); // Small delay to show the loss state
+    }
+  }, [gameState.gameStatus, gameState.moveCount, onNavigate]);
+
   return (
     <>
       <Head 
@@ -47,6 +64,22 @@ const Game = () => {
       />
 
       <div className="game-container">
+        <div className="game-header">
+          <button
+            onClick={() => onNavigate('menu')}
+            className="back-button"
+          >
+            ← Menu
+          </button>
+          
+          <button
+            onClick={onResetGame}
+            className="reset-button"
+          >
+            Reset
+          </button>
+        </div>
+
         <div className="game-content">
           <div className="game-logo-container">
             <img 
@@ -56,22 +89,13 @@ const Game = () => {
             />
           </div>
 
-          {(gameState.gameStatus === 'won' || gameState.gameStatus === 'lost') && (
-            <div className="flex justify-center mb-8">
-              <button
-                onClick={onResetGame}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition-colors"
-              >
-                {gameState.gameStatus === 'won' ? 'Play Again! 🎉' : 'Try Again'}
-              </button>
-            </div>
-          )}
-
           <Grid 
             grid={gameState.grid} 
             onCellClick={onCellClick}
             hintCells={hintCells}
+            gridSize={gridSize}
           />
+
         </div>
 
         <div className="bottom-stats">

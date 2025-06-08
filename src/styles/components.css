@@ -1,26 +1,102 @@
 @layer components {
+    /* Game Container & Content */
+    .game-container {
+        @apply min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4 lg:p-8 relative flex flex-col items-center justify-center;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .game-content {
+        @apply w-full max-w-sm sm:max-w-md lg:max-w-4xl mx-auto flex flex-col items-center;
+    }
+
+    .game-logo-container {
+        @apply flex justify-center mb-6;
+    }
+
+    .game-logo {
+        @apply h-12 sm:h-16 lg:h-20 w-auto object-contain drop-shadow-lg;
+    }
+
+    /* Game Header */
+    .game-header {
+        @apply flex items-center justify-between w-full mb-6 px-4;
+    }
+
+    .back-button {
+        @apply bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm;
+        font-family: var(--font-family-body);
+    }
+
+    .reset-button {
+        @apply bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm;
+        font-family: var(--font-family-body);
+    }
+
+    /* Bottom Stats */
     .bottom-stats {
-        @apply fixed bottom-4 left-4 flex flex-col gap-1 z-10;
+        @apply fixed bottom-4 left-4 flex flex-col gap-2 z-10;
     }
 
     .bottom-stat {
-        @apply px-2 py-1 bg-black/10 rounded-md;
+        @apply px-3 py-2;
     }
 
-    .bottom-stat span {
-        background: linear-gradient(135deg, 
-            theme('colors.yellow.500') 0%, 
-            theme('colors.orange.500') 50%, 
-            theme('colors.red.500') 100%
-        );
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-        @apply text-sm font-semibold;
+    .bottom-stat .stat-label {
+        @apply text-indigo-700/60 text-base;
+        font-family: var(--font-family-body);
     }
 
     .bottom-stat .stat-value {
-        @apply ml-2;
+        @apply ml-2 font-semibold text-indigo-800/70 text-lg;
+        font-family: var(--font-family-brand);
     }
 
+    .status-playing {
+        @apply text-green-600;
+    }
+
+    .status-won {
+        @apply text-blue-600;
+    }
+
+    .status-lost {
+        @apply text-red-600;
+    }
+
+    .score-count {
+        @apply text-indigo-600;
+    }
+
+    /* Shared Score Card */
+    .score-card {
+        @apply bg-white rounded-2xl p-8 mb-8 shadow-lg;
+    }
+
+    .score-number {
+        @apply text-6xl font-bold text-indigo-600 mb-2;
+        font-family: var(--font-family-brand);
+    }
+
+    .score-description {
+        @apply text-lg text-gray-600;
+        font-family: var(--font-family-body);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        @apply space-y-4;
+    }
+
+    .action-button-primary {
+        @apply w-full py-4 px-8 rounded-xl font-bold text-xl transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
+
+    .action-button-secondary {
+        @apply w-full py-4 px-8 rounded-xl font-bold text-xl transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-gray-500 to-gray-600 text-white shadow-lg hover:shadow-xl;
+        font-family: var(--font-family-brand);
+        letter-spacing: 0.1em;
+    }
 }
